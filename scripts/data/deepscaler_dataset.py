@@ -66,25 +66,22 @@ def make_map_fn(split: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process datasets for DeepScaler training')
-    parser.add_argument('--local_dir', default=os.path.expanduser('~/deepscaler/data'),
-                       help='Local directory to save processed datasets')
-    parser.add_argument('--hdfs_dir', default=None,
-                       help='Optional HDFS directory to copy datasets to')
+    parser.add_argument('--local_dir', default=os.path.expanduser('~/deepscaler/datas'), help='Local directory to save processed datasets')
+    parser.add_argument('--hdfs_dir', default=None, help='Optional HDFS directory to copy datasets to')
     args = parser.parse_args()
 
     local_dir = args.local_dir
     hdfs_dir = args.hdfs_dir
     
     # Make local directory if it doesn't exist
-    makedirs(local_dir)
+    # makedirs(local_dir)
 
     # Initialize datasets
     train_datasets = [TrainDataset.DEEPSCALER]
     train_dataset = load_dataset(train_datasets[0])
     test_datasets = [TestDataset.AIME, TestDataset.AMC, TestDataset.MATH, TestDataset.MINERVA, TestDataset.OLYMPIAD_BENCH]
-    
     test_datasets_data = [load_dataset(d) for d in test_datasets]
-
+    ...
     # Process training data
     train_data: List[Dict[str, Any]] = []
     process_fn = make_map_fn('train')
